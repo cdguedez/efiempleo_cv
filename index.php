@@ -29,7 +29,14 @@ for($i=0;$i<count($jsonusermeta);$i++) {
             $contentresume = "<h3>Editando tu curriculum, podras añadir la descripcion de tu perfil profesional</h3><br/><p>Para ello dirigete a tu pagina de usuario y edita este curriculum.</p>";
             $postname = $arraycsv[$a][0]."_".$arraycsv[$a][1];
             $candidatename = ucwords($jsonusermeta[$i]->display_name);
+            $dataeduone = $post->verifyedu('Bachiller',$arraycsv[$a][6],$arraycsv[$a][7],$arraycsv[$a][8],$arraycsv[$a][9],$arraycsv[$a][10]);
+            $dataedutwo = $post->verifyedu('Técnico Profesional',$arraycsv[$a][11],$arraycsv[$a][12],$arraycsv[$a][13],$arraycsv[$a][14],$arraycsv[$a][15]);
+            $dataeduthree = $post->verifyedu('Profesional',$arraycsv[$a][16],$arraycsv[$a][17],$arraycsv[$a][18],$arraycsv[$a][19],$arraycsv[$a][20]);
+            $dataexpone = $post->verifyexp($arraycsv[$a][21],$arraycsv[$a][22],$arraycsv[$a][23],$arraycsv[$a][24],$arraycsv[$a][25]);
+            $dataexptwo = $post->verifyexp($arraycsv[$a][26],$arraycsv[$a][27],$arraycsv[$a][28],$arraycsv[$a][29],$arraycsv[$a][30]);
             //array de datos para el postmeta
+            $metaedu = $post->arraymeta([$dataeduone, $dataedutwo, $dataeduthree]);
+            print_r($metaedu); exit;
             $metaarray = [
                 '_featured'                 => 0,
                 //'_resume_name_prefix'       => '',
@@ -37,41 +44,8 @@ for($i=0;$i<count($jsonusermeta);$i++) {
                 '_applying_for_job_id'      => 0,
                 '_candidate_name'           => $candidatename,
                 '_resume_content'           => 'Edita tu perfil profesional',
-                '_candidate_education'      => array(['levelAcademic' => 'Bachiller',
-                                                    'location'      => $arraycsv[$a][6],
-                                                    'qualification' => $arraycsv[$a][7],
-                                                    'dateStart'     => $arraycsv[$a][8],
-                                                    'dateEnd'       => $arraycsv[$a][9],
-                                                    'notes'         => $arraycsv[$a][10]
-                                                    ],
-                                                    ['levelAcademic' => 'Técnico Profesional',
-                                                    'location'      => $arraycsv[$a][11],
-                                                    'qualification' => $arraycsv[$a][12],
-                                                    'dateStart'     => $arraycsv[$a][13],
-                                                    'dateEnd'       => $arraycsv[$a][14],
-                                                    'notes'         => $arraycsv[$a][15]
-                                                    ],
-                                                    ['levelAcademic' => 'Profesional',
-                                                    'location'      => $arraycsv[$a][16],
-                                                    'qualification' => $arraycsv[$a][17],
-                                                    'dateStart'     => $arraycsv[$a][18],
-                                                    'dateEnd'       => $arraycsv[$a][19],
-                                                    'notes'         => $arraycsv[$a][20]
-                                                    ],
-                ),
-                '_candidate_experience'     => array(['employer'    => $arraycsv[$a][21],
-                                                    'job_title'     => $arraycsv[$a][22],
-                                                    'dateStart'     => $arraycsv[$a][23],
-                                                    'dateEnd'       => $arraycsv[$a][24],
-                                                    'notes'         => $arraycsv[$a][25]
-                                                    ],
-                                                    ['employer'     => $arraycsv[$a][26],
-                                                    'job_title'     => $arraycsv[$a][27],
-                                                    'dateStart'     => $arraycsv[$a][28],
-                                                    'dateEnd'       => $arraycsv[$a][29],
-                                                    'notes'         => $arraycsv[$a][30]
-                                                    ]
-                ),
+                '_candidate_education'      => array($dataeduone,$dataedutwo,$dataeduthree),
+                '_candidate_experience'     => array($dataexpone, $dataexptwo),
                 '_candidate_skill'          => '',
                 '_job_listing_languaje'     => ['Español'],
                 '_candidate_province'       => $arraycsv[0][5],
@@ -80,6 +54,7 @@ for($i=0;$i<count($jsonusermeta);$i++) {
                 '_resume_expires'           => '',
             ];
             $post->post_insert($jsonusermeta[$i]->user_id,$postname,$candidatename,$contentresume, $typepost, $metaarray);
+            exit;
         }
     }
 }

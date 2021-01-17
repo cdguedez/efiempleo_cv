@@ -39,4 +39,46 @@ class PostResume{
         }        
     }
 
+    public function verifyedu($levaca, $val1, $val2, $val3, $val4, $val5) {
+        $data = [];
+        if(!$levaca == "") {
+            $data = [
+                'levelAcademic' => $levaca,
+                'location'      => $val1,
+                'qualification' => $val2,
+                'dateStart'     => $val3,
+                'dateEnd'       => $val4,
+                'notes'         => $val5
+            ];
+            return $data;
+        } else {
+            return $data;
+        }
+    }
+
+    public function verifyexp($emp, $val1, $val2, $val3, $val4) {
+        $data = [];
+        if(!$emp == "") {
+            $data = ['employer'      => $emp,
+                     'job_title'     => $val1,
+                     'dateStart'     => $val2,
+                     'dateEnd'       => $val3,
+                     'notes'         => $val4
+            ];
+            return $data;
+        } else {
+            return $data;
+        }
+    }
+
+    public function arraymeta(Array $metaparam) {
+        $data = [];
+        foreach ($metaparam as $value) {
+            if(count($value) > 0) {
+                array_push($data, $value);
+            }         
+        }
+        return $data;
+    }
+
 }
