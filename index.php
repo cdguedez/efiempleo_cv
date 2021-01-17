@@ -36,7 +36,7 @@ for($i=0;$i<count($jsonusermeta);$i++) {
             $dataexptwo = $post->verifyexp($arraycsv[$a][26],$arraycsv[$a][27],$arraycsv[$a][28],$arraycsv[$a][29],$arraycsv[$a][30]);
             //array de datos para el postmeta
             $metaedu = $post->arraymeta([$dataeduone, $dataedutwo, $dataeduthree]);
-            print_r($metaedu); exit;
+            $metaexp = $post->arraymeta([$dataexpone, $dataexptwo]);
             $metaarray = [
                 '_featured'                 => 0,
                 //'_resume_name_prefix'       => '',
@@ -44,8 +44,8 @@ for($i=0;$i<count($jsonusermeta);$i++) {
                 '_applying_for_job_id'      => 0,
                 '_candidate_name'           => $candidatename,
                 '_resume_content'           => 'Edita tu perfil profesional',
-                '_candidate_education'      => array($dataeduone,$dataedutwo,$dataeduthree),
-                '_candidate_experience'     => array($dataexpone, $dataexptwo),
+                '_candidate_education'      => $metaedu,
+                '_candidate_experience'     => $metaexp,
                 '_candidate_skill'          => '',
                 '_job_listing_languaje'     => ['Español'],
                 '_candidate_province'       => $arraycsv[0][5],

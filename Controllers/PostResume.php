@@ -41,7 +41,7 @@ class PostResume{
 
     public function verifyedu($levaca, $val1, $val2, $val3, $val4, $val5) {
         $data = [];
-        if(!$levaca == "") {
+        if(!$val1 == "") {
             $data = [
                 'levelAcademic' => $levaca,
                 'location'      => $val1,
@@ -58,7 +58,7 @@ class PostResume{
 
     public function verifyexp($emp, $val1, $val2, $val3, $val4) {
         $data = [];
-        if(!$emp == "") {
+        if(!$val1 == "") {
             $data = ['employer'      => $emp,
                      'job_title'     => $val1,
                      'dateStart'     => $val2,
@@ -71,7 +71,7 @@ class PostResume{
         }
     }
 
-    public function arraymeta(Array $metaparam) {
+    public function arraymeta($metaparam) {
         $data = [];
         foreach ($metaparam as $value) {
             if(count($value) > 0) {
