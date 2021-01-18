@@ -54,7 +54,6 @@ for($i=0;$i<count($jsonusermeta);$i++) {
                 '_resume_expires'           => '',
             ];
             $post->post_insert($jsonusermeta[$i]->user_id,$postname,$candidatename,$contentresume, $typepost, $metaarray);
-            exit;
         }
     }
 }
