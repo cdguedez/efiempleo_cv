@@ -21,6 +21,7 @@ $jsonusermeta = $user->wpdbquery();
 // array Csv para cargar el post
 $csv = $csv->getCsv(scriptURI.'data-test.csv');
 $arraycsv = $csv['csv'];
+print_r($arraycsv); exit;
 $typepost = "resume";
 for($a=0;$a<count($arraycsv);$a++) {
     for($i=0;$i<count($jsonusermeta);$i++) {

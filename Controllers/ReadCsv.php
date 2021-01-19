@@ -11,6 +11,7 @@ class ReadCsv {
         $csv = [];
         $header = [];
         while(($datafile = fgetcsv($getfile, 1500, ";")) !== false) {
+            $datafile = array_map("utf8_encode", $datafile); //added charset
             if(count($header) == 0) {
                 foreach($datafile as $value) {
                     array_push($header, $value);
