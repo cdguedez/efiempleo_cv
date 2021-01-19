@@ -16,26 +16,27 @@ class PostResume{
      * 
      */
     public function post_insert($post_author, $post_name, $post_title, $post_content, $page, $postmeta) {
-        $existresume = 1;
         global $wpdb;
         $existresume = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_author = '$post_author' AND post_title = '$post_title' AND post_status = 'publish' AND post_type = '$page'");
         if($existresume == "") {
-            $insertpost = wp_insert_post(  //regresa numero de ID del post creado
-                array(
-                    'comment_status'    => 'open',
-                    'ping_status'       => 'closed',
-                    'post_author'       => $post_author,
-                    'post_name'         => $post_name,
-                    'post_title'        => $post_title,
-                    'post_content'      => $post_content,
-                    'ping_status'       => 'closed',
-                    'post_status'       => 'publish',
-                    'post_type'         => $page,
-                    'meta_input'        => $postmeta
-                ),
-                true
+            $args = array(
+                'comment_status'    => 'open',
+                'ping_status'       => 'closed',
+                'post_author'       => $post_author,
+                'post_name'         => $post_name,
+                'post_title'        => $post_title,
+                'post_content'      => $post_content,
+                'ping_status'       => 'closed',
+                'post_status'       => 'publish',
+                'post_type'         => $page,
+                'meta_input'        => $postmeta
             );
-            echo "ID $insertpost creado con exito, curriculum: $post_name <br/>"; 
+            $insertpost = wp_insert_post($args, true);
+            // if(!is_wp_error($insertpost)) {
+            //     echo "ID $insertpost creado con exito, curriculum: $post_name <br/>"; 
+            // } else {
+            //     echo $insertpost->get_error_message();
+            // }
         }        
     }
 

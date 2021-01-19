@@ -22,8 +22,8 @@ $jsonusermeta = $user->wpdbquery();
 $csv = $csv->getCsv(scriptURI.'data-test.csv');
 $arraycsv = $csv['csv'];
 $typepost = "resume";
-for($i=0;$i<count($jsonusermeta);$i++) {
-    for($a=0;$a<count($arraycsv);$a++) {
+for($a=0;$a<count($arraycsv);$a++) {
+    for($i=0;$i<count($jsonusermeta);$i++) {
         if($arraycsv[$a][2] == $jsonusermeta[$i]->user_email) {
             //concatenamos el contenido del post
             $contentresume = "<h3>Editando tu curriculum, podras añadir la descripcion de tu perfil profesional</h3><br/><p>Para ello dirigete a tu pagina de usuario y edita este curriculum.</p>";
@@ -38,22 +38,23 @@ for($i=0;$i<count($jsonusermeta);$i++) {
             $metaedu = $post->arraymeta([$dataeduone, $dataedutwo, $dataeduthree]);
             $metaexp = $post->arraymeta([$dataexpone, $dataexptwo]);
             $metaarray = [
+                '_candidate_education'      => $metaedu,
+                '_candidate_experience'     => $metaexp,
                 '_featured'                 => 0,
-                //'_resume_name_prefix'       => '',
                 '_public_submission'        => 1,
                 '_applying_for_job_id'      => 0,
                 '_candidate_name'           => $candidatename,
                 '_resume_content'           => 'Edita tu perfil profesional',
-                '_candidate_education'      => $metaedu,
-                '_candidate_experience'     => $metaexp,
                 '_candidate_skill'          => '',
                 '_job_listing_languaje'     => ['Español'],
-                '_candidate_province'       => $arraycsv[0][5],
-                '_candidate_country'        => $arraycsv[0][4],
-                '_candidate_phone'          => $arraycsv[0][3],
+                '_candidate_province'       => $arraycsv[$a][5],
+                '_candidate_country'        => $arraycsv[$a][4],
+                '_candidate_phone'          => $arraycsv[$a][3],
                 '_resume_expires'           => '',
             ];
             $post->post_insert($jsonusermeta[$i]->user_id,$postname,$candidatename,$contentresume, $typepost, $metaarray);
+            echo $candidatename."<br/>";
+            print_r($metaarray); echo "<hr/>";
         }
     }
 }
