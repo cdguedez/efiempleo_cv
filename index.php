@@ -21,7 +21,6 @@ $jsonusermeta = $user->wpdbquery();
 // array Csv para cargar el post
 $csv = $csv->getCsv(scriptURI.'data-test.csv');
 $arraycsv = $csv['csv'];
-print_r($arraycsv); exit;
 $typepost = "resume";
 for($a=0;$a<count($arraycsv);$a++) {
     for($i=0;$i<count($jsonusermeta);$i++) {
@@ -54,8 +53,6 @@ for($a=0;$a<count($arraycsv);$a++) {
                 '_resume_expires'           => '',
             ];
             $post->post_insert($jsonusermeta[$i]->user_id,$postname,$candidatename,$contentresume, $typepost, $metaarray);
-            echo $candidatename."<br/>";
-            print_r($metaarray); echo "<hr/>";
         }
     }
 }
