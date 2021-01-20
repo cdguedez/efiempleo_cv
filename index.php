@@ -11,13 +11,11 @@ require_once(scriptURI.'Controllers/PostResume.php');
 use Models\Usermeta;
 use Controllers\ReadCsv;
 use Controllers\PostResume;
-
 // //instanciacion de clases
 $user = new Usermeta();
 $csv = new ReadCsv();
 $post =new PostResume();
 $jsonusermeta = $user->wpdbquery();
-
 // array Csv para cargar el post
 $csv = $csv->getCsv(scriptURI.'data-test.csv');
 $arraycsv = $csv['csv'];

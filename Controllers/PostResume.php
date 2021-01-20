@@ -32,11 +32,7 @@ class PostResume{
                 'meta_input'        => $postmeta
             );
             $insertpost = wp_insert_post($args, true);
-            if(!is_wp_error($insertpost)) {
-                echo "ID $insertpost creado con exito, curriculum: $post_name <br/>"; 
-            } else {
-                echo $insertpost->get_error_message();
-            }
+            echo "ID $insertpost creado con exito, curriculum: $post_name <br/>";
         }        
     }
 

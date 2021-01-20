@@ -3,7 +3,7 @@
 Plugin Name: script_efiempleo
 Plugin URI:
 Description: Inserta post tipo resume en wp_job_manager
-Version: 1.0
+Version: 1.2
 Author: cguedez@efiempresa.com
 Author URI:
 License: GPL2
