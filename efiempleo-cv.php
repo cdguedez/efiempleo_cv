@@ -8,7 +8,7 @@ Author: cguedez@efiempresa.com
 Author URI:
 License: GPL2
 */
-define('scriptURI', plugin_dir_path(__FILE__));
+define('EFI_CV_PATH', plugin_dir_path(__FILE__));
 defined('ABSPATH') or die("Bye bye");
 
 function activescript()

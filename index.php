@@ -5,9 +5,9 @@ require_once($path.'wp-load.php');
 if (!current_user_can('manage_options')) {
     exit();
 }
-require_once(scriptURI.'Models/Usermeta.php');
-require_once(scriptURI.'Controllers/ReadCsv.php');
-require_once(scriptURI.'Controllers/PostResume.php');
+require_once(EFI_CV_PATH.'Models/Usermeta.php');
+require_once(EFI_CV_PATH.'Controllers/ReadCsv.php');
+require_once(EFI_CV_PATH.'Controllers/PostResume.php');
 use Models\Usermeta;
 use Controllers\ReadCsv;
 use Controllers\PostResume;
@@ -17,7 +17,7 @@ $csv = new ReadCsv();
 $post =new PostResume();
 $jsonusermeta = $user->wpdbquery();
 // array Csv para cargar el post
-$csv = $csv->getCsv(scriptURI.'data-test.csv');
+$csv = $csv->getCsv(EFI_CV_PATH.'data-test.csv');
 $arraycsv = $csv['csv'];
 $typepost = "resume";
 for($a=0;$a<count($arraycsv);$a++) {
