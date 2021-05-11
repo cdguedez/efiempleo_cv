@@ -1,56 +1,36 @@
-<?php
+<div class="wrap">
+    <h1 class="wp-heading-inline"><?php echo get_admin_page_title() ?></h1>
 
-$path = preg_replace('/wp-content.*$/','',__DIR__);
-require_once($path.'wp-load.php');
-if (!current_user_can('manage_options')) {
-    exit();
-}
-require_once(EFI_CV_PATH.'Models/Usermeta.php');
-require_once(EFI_CV_PATH.'Controllers/ReadCsv.php');
-require_once(EFI_CV_PATH.'Controllers/PostResume.php');
-use Models\Usermeta;
-use Controllers\ReadCsv;
-use Controllers\PostResume;
-// //instanciacion de clases
-$user = new Usermeta();
-$csv = new ReadCsv();
-$post =new PostResume();
-$jsonusermeta = $user->wpdbquery();
-// array Csv para cargar el post
-$csv = $csv->getCsv(EFI_CV_PATH.'data-test.csv');
-$arraycsv = $csv['csv'];
-$typepost = "resume";
-for($a=0;$a<count($arraycsv);$a++) {
-    for($i=0;$i<count($jsonusermeta);$i++) {
-        if($arraycsv[$a][2] == $jsonusermeta[$i]->user_email) {
-            //concatenamos el contenido del post
-            $contentresume = "<h3>Editando tu curriculum, podras añadir la descripcion de tu perfil profesional</h3><br/><p>Para ello dirigete a tu pagina de usuario y edita este curriculum.</p>";
-            $postname = $arraycsv[$a][0]."_".$arraycsv[$a][1];
-            $candidatename = ucwords($jsonusermeta[$i]->display_name);
-            $dataeduone = $post->verifyedu('Bachiller',$arraycsv[$a][6],$arraycsv[$a][7],$arraycsv[$a][8],$arraycsv[$a][9],$arraycsv[$a][10]);
-            $dataedutwo = $post->verifyedu('Técnico Profesional',$arraycsv[$a][11],$arraycsv[$a][12],$arraycsv[$a][13],$arraycsv[$a][14],$arraycsv[$a][15]);
-            $dataeduthree = $post->verifyedu('Profesional',$arraycsv[$a][16],$arraycsv[$a][17],$arraycsv[$a][18],$arraycsv[$a][19],$arraycsv[$a][20]);
-            $dataexpone = $post->verifyexp($arraycsv[$a][21],$arraycsv[$a][22],$arraycsv[$a][23],$arraycsv[$a][24],$arraycsv[$a][25]);
-            $dataexptwo = $post->verifyexp($arraycsv[$a][26],$arraycsv[$a][27],$arraycsv[$a][28],$arraycsv[$a][29],$arraycsv[$a][30]);
-            //array de datos para el postmeta
-            $metaedu = $post->arraymeta([$dataeduone, $dataedutwo, $dataeduthree]);
-            $metaexp = $post->arraymeta([$dataexpone, $dataexptwo]);
-            $metaarray = [
-                '_candidate_education'      => $metaedu,
-                '_candidate_experience'     => $metaexp,
-                '_featured'                 => 0,
-                '_public_submission'        => 1,
-                '_applying_for_job_id'      => 0,
-                '_candidate_name'           => $candidatename,
-                '_resume_content'           => 'Edita tu perfil profesional',
-                '_candidate_skill'          => '',
-                '_job_listing_languaje'     => ['Español'],
-                '_candidate_province'       => $arraycsv[$a][5],
-                '_candidate_country'        => $arraycsv[$a][4],
-                '_candidate_phone'          => $arraycsv[$a][3],
-                '_resume_expires'           => '',
-            ];
-            $post->post_insert($jsonusermeta[$i]->user_id,$postname,$candidatename,$contentresume, $typepost, $metaarray);
-        }
-    }
-}
+    <?php if($_GET['message']) { ?>
+        <div class="notice notice-success is-dismissible"><p><?php echo $_GET['message']; ?></p></div>
+        <span>
+            <?php echo "Memoria Usada despues de script: ".$_GET['memory']."MB"; ?>
+        </span>
+    <?php } else { ?>
+        <span>
+            <?php echo "Memoria Usada sin script: " . round(memory_get_usage()/1048576) . "MB"; ?>
+        </span>
+    <?php } ?>
+    <form action="<?php echo EFI_PLUGIN_DIR.'includes/upload_csv.php' ?>" enctype="multipart/form-data" method="post">
+        <label for="dataCsv">Carga tu archivo con CV</label>
+        <input type="file" name="dataCsv" id="dataCsv" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" aria-required="true" autocapitalize="none" autocorrect="off" maxlength="60" required >
+        <button type="submit" class="button button-primary">Cargar CV's</button>
+    </form>
+    <br />
+    <table class="wp-list-table widefat fixed striped table-view-list posts">
+        <thead>
+            <tr>
+                <th>Cantidad de registros</th>
+                <th>Fecha de subida</th>
+                <th>Nombre del archivo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1.590</th>
+                <th>15 Abr, 2021</th>
+                <th>Carga primer lote</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

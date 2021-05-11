@@ -7,10 +7,10 @@ class ReadCsv {
     
     public function getCsv ($file) {
         $getfile = fopen($file, "r");
-        $content = []; //contenido del csv
-        $csv = [];
-        $header = [];
-        while(($datafile = fgetcsv($getfile, 1500, ";")) !== false) {
+        $content = [];  //contenido del Csv
+        $csv = [];      // Array retornado
+        $header = [];   // Cabecers del Csv
+        while(($datafile = fgetcsv($getfile, 1500, ",")) !== false) {
             $datafile = array_map("utf8_encode", $datafile);
             if(count($header) == 0) {
                 foreach($datafile as $value) {
@@ -32,6 +32,6 @@ class ReadCsv {
         $this->countcontent = count($csv);
         $arraycontent = compact('header','csv');
         return $arraycontent;
-    }
+    } 
 
 }

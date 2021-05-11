@@ -1,28 +1,40 @@
 <?php
 /*
-Plugin Name: script_efiempleo
+Plugin Name:        EFIEMPLEO CV
 Plugin URI:
-Description: Inserta post tipo resume en wp_job_manager
-Version: 1.2
-Author: cguedez@efiempresa.com
-Author URI:
-License: GPL2
+Description:        Cargar resume post type de wp job manager para efiempleo
+Version:            1.0
+Author:             Carlos David Guedez
+Author URI:         
+License:            GPL v2 or later
+License URI:        https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:        efiempleo-cv
 */
+defined('ABSPATH') or die;
+
 define('EFI_CV_PATH', plugin_dir_path(__FILE__));
-defined('ABSPATH') or die("Bye bye");
+define('EFI_PLUGIN_DIR', plugin_dir_url(__FILE__));
+define('EFI_UPLOADS_TMP', plugin_dir_path(__FILE__).'uploads/');
 
-function activescript()
-{
+function efi_activate() {
 }
-function disablescript()
-{
-}
+register_activation_hook(__FILE__, 'efi_activate');
 
-register_activation_hook(__FILE__, 'activescript');
-register_deactivation_hook(__FILE__, 'disablescript');
-
-add_action("admin_menu", "createscript");
-function createscript()
-{
-    add_menu_page('ejecutando script_efiempleo', 'script Efiempleo', 'manage_options', plugin_dir_path(__FILE__).'index.php', null, '', '5');
+function efi_deactivate() {
+    
 }
+register_deactivation_hook(__FILE__, 'efi_deactivate');
+
+function efi_create_menu()
+{
+    add_menu_page(
+        'Efiempleo - Carga de CV',
+        'script Efiempleo',
+        'manage_options',
+        EFI_CV_PATH.'index.php',
+        null,
+        'dashicons-welcome-add-page',
+        '5'
+    );
+}
+add_action("admin_menu", "efi_create_menu");
