@@ -54,15 +54,25 @@ if(file_exists($tmpcsv)) {
                         '_candidate_phone'          => $row[3],
                         '_resume_expires'           => '',
                     ];
-                    
-                    $save = $post->post_insert($user->ID, $postname,$candidatename,$contentresume,$post_type,$metaarray);
+                    // echo "ID: ".$user->ID."<hr/>";
+                    // echo "Nombre del candidato: $postname<hr/>";
+                    // echo "E-Mail del candidato: ".$row[2]."<hr/>";
+                    // echo "Nombre de usuario: $candidatename<hr/>";
+                    // echo "Contenido del CV: $contentresume<hr/>";
+                    // echo "Tipo de post: $post_type<hr/>";
+                    // echo "array de meta descripcion<br/>"; print_r($metaarray); echo "<hr/>";                   
+                    $add = $post->post_insert($user->ID, $postname,$candidatename,$contentresume,$post_type,$metaarray);
+                    $save = $save+$add;
+                } else {
+                    // echo "Usuario con CV : ".$user->user_email." ID: ".$user->ID."<hr/>"; 
+                    $contexist++;
                 }
                 break;
             }
         }
     }
-    echo $msg = "Total de CV analizados: $contcsv Total CV nuevos: $save Total de usuarios con CV ya en sistema: $contexist";
+    $msg = "Total de CV analizados: $contcsv Total CV nuevos: $save Total de usuarios con CV ya en sistema: $contexist";
 } else {
-    echo $msg = 'Hubo un error al cargar su CSV, intentelo de nuevo';
+    $msg = 'Hubo un error al cargar su CSV, intentelo de nuevo';
 }
-// wp_safe_redirect($_SERVER['HTTP_REFERER']."&message=$msg");
+wp_safe_redirect($_SERVER['HTTP_REFERER']."&message=$msg");

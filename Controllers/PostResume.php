@@ -10,18 +10,18 @@ class PostResume{
 
     public function post_insert($post_author, $post_name, $post_title, $post_content, $type, $postmeta) {
         $args = array(
-            'comment_status'    => 'open',
-            'ping_status'       => 'closed',
+            'comment_status'    => "open",
+            'ping_status'       => "closed",
             'post_author'       => $post_author,
             'post_name'         => $post_name,
             'post_title'        => $post_title,
             'post_content'      => $post_content,
-            'ping_status'       => 'closed',
-            'post_status'       => 'publish',
-            'post_type'         => $type,
+            'ping_status'       => "closed",
+            'post_status'       => "publish",
+            'post_type'         => "$type",
             'meta_input'        => $postmeta
         );
-        $post_insert = wp_insert_post($args);
+        $post_insert = wp_insert_post($args, true);
         return 1;
     }
 

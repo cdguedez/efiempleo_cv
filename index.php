@@ -25,4 +25,5 @@
             </tr>
         </tbody>
     </table>
+    <p><?php echo '<br>'. round(memory_get_usage()/1048576) . "MB"; ?></p>
 </div>
