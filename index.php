@@ -1,15 +1,7 @@
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php echo get_admin_page_title() ?></h1>
-
     <?php if($_GET['message']) { ?>
         <div class="notice notice-success is-dismissible"><p><?php echo $_GET['message']; ?></p></div>
-        <span>
-            <?php echo "Memoria Usada despues de script: ".$_GET['memory']."MB"; ?>
-        </span>
-    <?php } else { ?>
-        <span>
-            <?php echo "Memoria Usada sin script: " . round(memory_get_usage()/1048576) . "MB"; ?>
-        </span>
     <?php } ?>
     <form action="<?php echo EFI_PLUGIN_DIR.'includes/upload_csv.php' ?>" enctype="multipart/form-data" method="post">
         <label for="dataCsv">Carga tu archivo con CV</label>

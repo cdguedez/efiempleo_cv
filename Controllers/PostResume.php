@@ -7,36 +7,22 @@ if (!current_user_can('manage_options')) {
 }
 
 class PostResume{
-    /**
-     * @param integer $post_author: id del usuario dueño de la publicacion
-     * @param string $post_name: nombre del curriculum
-     * @param string $post_title: Titulo del post resume
-     * @param string $post_content: contenido del CV's
-     * @param string $page: tipo de post que se creara
-     * 
-     */
-    public function post_insert($post_author, $post_name, $post_title, $post_content, $page, $postmeta) {
-        global $wpdb;
-        $existresume = $wpdb->get_var("SELECT ID FROM $wpdb->posts
-                                       WHERE post_author = '$post_author' AND post_title = '$post_title' AND post_status = 'publish' AND post_type = '$page'");
-        if($existresume == "") {
-            $args = array(
-                'comment_status'    => 'open',
-                'ping_status'       => 'closed',
-                'post_author'       => $post_author,
-                'post_name'         => $post_name,
-                'post_title'        => $post_title,
-                'post_content'      => $post_content,
-                'ping_status'       => 'closed',
-                'post_status'       => 'publish',
-                'post_type'         => $page,
-                'meta_input'        => $postmeta
-            );
-            $insertpost = wp_insert_post($args, true);
-            echo "<br/><strong>ID $insertpost creado con exito, curriculum: $post_name</strong><br/>";
-        } else {
-            echo "<br/><strong>Vaya, parece que ya tienes un Curriculum Creado con el ID $existresume</strong><br/>";
-        }  
+
+    public function post_insert($post_author, $post_name, $post_title, $post_content, $type, $postmeta) {
+        $args = array(
+            'comment_status'    => 'open',
+            'ping_status'       => 'closed',
+            'post_author'       => $post_author,
+            'post_name'         => $post_name,
+            'post_title'        => $post_title,
+            'post_content'      => $post_content,
+            'ping_status'       => 'closed',
+            'post_status'       => 'publish',
+            'post_type'         => $type,
+            'meta_input'        => $postmeta
+        );
+        $post_insert = wp_insert_post($args);
+        return 1;
     }
 
     public function verifyedu($levaca, $val1, $val2, $val3, $val4, $val5) {
