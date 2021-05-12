@@ -56,9 +56,6 @@ if(file_exists($tmpcsv)) {
                     ];
                     
                     $save = $post->post_insert($user->ID, $postname,$candidatename,$contentresume,$post_type,$metaarray);
-                    $save = $save+$save;
-                } else {
-                    $contexist++;
                 }
                 break;
             }
