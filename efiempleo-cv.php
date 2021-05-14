@@ -14,7 +14,7 @@ defined('ABSPATH') or die;
 
 define('EFI_CV_PATH', plugin_dir_path(__FILE__));
 define('EFI_PLUGIN_DIR', plugin_dir_url(__FILE__));
-define('EFI_UPLOADS_TMP', plugin_dir_path(__FILE__).'uploads/');
+define('EFI_UPLOADS_TMP', plugin_dir_path(__FILE__).'Uploads/');
 
 function efi_activate() {
 }
