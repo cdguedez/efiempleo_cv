@@ -3,7 +3,7 @@
 Plugin Name:        EFIEMPLEO CV
 Plugin URI:
 Description:        Cargar resume post type de wp job manager para efiempleo
-Version:            1.0
+Version:            1.1
 Author:             Carlos David Guedez
 Author URI:         
 License:            GPL v2 or later
